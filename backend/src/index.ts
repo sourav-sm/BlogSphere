@@ -1,7 +1,6 @@
 import { Hono } from 'hono'
-import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
-import { decode,sign,verify } from 'hono/jwt'
+import { userRouter } from './routes/user';
+import { blogRouter } from './routes/blog';
 
 
 
@@ -10,7 +9,10 @@ const app = new Hono<{
     DATABASE_URL:string,
     JWT_SECRET:string
   }
-}>()
+}>();
+
+app.route("/api/v1/user",userRouter);
+app.route("/api/v1/blog",blogRouter);
 
 app.get('/', (c) => {
   
@@ -18,72 +20,6 @@ app.get('/', (c) => {
   return c.text('Hello Hono!')
 })
 
-app.post('/api/v1/user/signup', async(c) => {
-  const body=await c.req.json();
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-}).$extends(withAccelerate())
-
- try{
-  const user=await prisma.user.create({
-    data:{
-      username:body.username,
-      password:body.password,
-      name:body.name
-    }
-   })
-   const jwt=await sign({
-    id:user.id
-   },c.env.JWT_SECRET)
-    
-    return c.text(jwt)
- }catch(e){
-  c.status(411);
-  return c.text('Invalid')
- }
-})
-
-app.get('/api/v1/user/signin', async(c) => {
-  const body=await c.req.json()
-  const prisma=new PrismaClient({
-    datasourceUrl:c.env.DATABASE_URL,
-  }).$extends(withAccelerate())
-
-  try{
-    const user=await prisma.user.findFirst({
-      where:{
-        username:body.username,
-        password:body.password,
-      }
-    })
-    //if user not found
-    if(!user){
-      c.status(403);
-      return c.json({
-        message:"Incorrect Credentials"
-      })
-    } 
-    const jwt=await sign({
-      id:user.id
-    },c.env.JWT_SECRET);
-
-    return c.text(jwt)
-  }catch(e){
-    console.log(e);
-    c.status(411);
-    return c.text('Invalid')
-  }
-})
-
-app.get('/api/v1/blog', (c) => {
-  return c.text('Hello blog!')
-})
-
-app.get('/api/v1/blog/:id', (c) => {
-  const id=c.req.param('id')
-  console.log(id);
-  return c.text('get blog route')
-})
 
 export default app
 
