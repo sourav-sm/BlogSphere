@@ -1,0 +1,14 @@
+{
+  "name": "@developersourav/medium-common",
+  "version": "1.0.1",
+  "description": "zod validtions",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sourav",
+  "license": "ISC",
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}
