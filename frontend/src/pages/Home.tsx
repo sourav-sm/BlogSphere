@@ -1,7 +1,8 @@
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import home from "../../src/Image/home.png"
 
 export const Home=()=>{
+    const navigate=useNavigate();
     return( <div>
             <div className="flex justify-between border-b px-10 py-4">
                <div className="font-serif flex flex-col justify-center font-semibold text-4xl text px-36">
@@ -29,7 +30,7 @@ export const Home=()=>{
                        A place to read,write,and deepen your understanding
                    </div>
                    <div className="px-28 text-xl font-normal pt-7">
-                        <button className="bg-black text-white px-6 py-2 rounded-2xl">Start Reading</button>
+                        <button onClick={()=>navigate("/signup")} className="bg-black text-white px-6 py-2 rounded-2xl">Start Reading</button>
                    </div>
                </div>
                <div className="vissible">
@@ -52,17 +53,3 @@ export const Home=()=>{
         </div>
     )
 }
-
-
-        // <div className="flex justify-between border-b px-10 py-4">
-        //     <Link to={"/blogs"} className="flex flex-col justify-center font-bold text-2xl">
-        //         Medium
-        //     </Link>
-        //     <div>
-        //         <Link to={"/publish"}>
-        //         <button type="button" className="mr-4 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">New</button>
-        //         </Link>
-        //         <Avatar name="sourav" size={"big"}/>
-        //     </div>
-        // </div>
- 
