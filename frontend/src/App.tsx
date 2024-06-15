@@ -5,6 +5,7 @@ import { Signup } from "./pages/Signup";
 import { Blogs } from "./pages/Blogs";
 import { Publish } from "./pages/Publish";
 import { Home } from "./pages/Home";
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
 
@@ -17,8 +18,9 @@ function App() {
         <Route path="/blog/:id" element={<Blog/>}/>
         <Route path="/blogs" element={<Blogs/>}/>
         <Route path="/publish" element={<Publish/>}/>
-        publish
       </Routes>
+      {/* for vercel analytics */}
+      <Analytics/>
     </BrowserRouter>
   )
 }
