@@ -5,7 +5,7 @@ export const Appbar=()=>{
     return(
         <div className="flex justify-between border-b px-10 py-4">
             <Link to={"/blogs"} className="flex flex-col justify-center font-bold text-2xl">
-                Medium
+                BlogSphere
             </Link>
             <div>
                 <Link to={"/publish"}>
