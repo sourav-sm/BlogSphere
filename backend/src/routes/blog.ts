@@ -153,3 +153,46 @@ blogRouter.get('/:id', async(c) => {
     }
 })
   
+
+// ENDPOINT FOR DELETING A BLOG
+blogRouter.delete('/:id', async (c) => {
+    const postId = await c.req.param("id");
+    const userId = c.get("userId");
+  
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+  
+    try {
+      // Find the blog post to ensure it exists and belongs to the authenticated user
+      const blog = await prisma.blog.findFirst({
+        where: {
+          id: Number(postId),
+        },
+      });
+  
+      if (!blog) {
+        c.status(404);
+        return c.json({
+          message: "Blog post not found or you don't have permission to delete it",
+        });
+      }
+  
+      // Delete the blog post
+      await prisma.blog.delete({
+        where: {
+          id: Number(postId),
+        },
+      });
+  
+      return c.json({
+        message: "Blog post deleted successfully",
+      });
+    } catch (e) {
+      console.log(e);
+      c.status(500);
+      return c.json({
+        message: "Error while deleting blog post",
+      });
+    }
+  });
