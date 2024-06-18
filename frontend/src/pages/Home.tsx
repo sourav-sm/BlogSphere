@@ -35,7 +35,7 @@ export const Home = () => {
                         </button>
                     </div>
                 </div>
-                <div className="hidden md:flex md:ml-24">
+                <div className="hidden md:flex md:ml-32">
                     <img src={home} alt="" />
                 </div>
             </div>
