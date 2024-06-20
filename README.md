@@ -89,4 +89,4 @@ We welcome contributions from the community! Follow these steps to contribute:
 
 For any questions or suggestions, feel free to open an issue or contact here.
 -   Sourav Mohanta - developersourav135@gmail.com
--   Project Link: https://sourav-mohanta.vercel.app/
+-   Portfolio: https://sourav-mohanta.vercel.app/
